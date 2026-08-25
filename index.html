@@ -5,12 +5,28 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>weather-app</title>
+  <script type="module" src="/src/main.js" defer></script>
+  <title>Weather App</title>
 </head>
 
 <body>
-  <div id="app"></div>
-  <script type="module" src="/src/main.js"></script>
+  <header id="main-header">
+    <h3>Weather App</h3>
+    <div class="header-right">
+      <form action="" id="search-form">
+        <img class='search-icon' src="/search-icon.svg" alt="search icon">
+        <input type="text" name='city' placeholder="Enter city name" id="city-input">
+      </form>
+      <div id="header-buttons">
+        <button type="button" id="celsius-button" data-unit="C">°C</button>
+        <button type="button" id="farenh-button" data-unit="F">°F</button>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div id="today-div">
+    </div>
+  </main>
 </body>
 
 </html>

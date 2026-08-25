@@ -1,0 +1,153 @@
+/* Header */
+:root {
+	--city-input-height: 45px;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	height: 100vh;
+	margin: 0;
+	padding: 0;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	display: flex;
+	flex-direction: column;
+}
+
+#main-header {
+	display: flex;
+	background-color: #282828;
+	justify-content: space-around;
+	align-items: center;
+	color: white;
+	padding: 5px;
+	font-size: 24px;
+}
+
+.header-right {
+	display: flex;
+	gap: 30px;
+}
+
+.search-icon {
+	height: var(--city-input-height);
+	padding: 9px;
+	color: white;
+}
+
+#search-form {
+	background-color: white;
+	align-items: center;
+	display: flex;
+	height: var(--city-input-height);
+}
+
+#city-input {
+	height: var(--city-input-height);
+	border: none;
+	width: 300px;
+	font-size: 20px;
+
+	&:focus {
+		border: none;
+		outline: none;
+	}
+}
+
+#header-buttons button {
+	margin: 0 -3px;
+	font-size: 20px;
+	width: 50px;
+	height: var(--city-input-height);
+	border: 1px solid rgb(43, 42, 42);
+	background-color: rgb(240, 240, 240);
+
+	&:hover {
+		background-color: rgb(185, 185, 185);
+	}
+
+	&:active {
+		background-color: rgb(138, 138, 138);
+	}
+}
+
+#celsius-button {
+	border-radius: 14px 0 0 14px;
+}
+
+#farenh-button {
+	border-radius: 0 14px 14px 0;
+}
+
+.clicked-header-button {
+	font-weight: bold;
+	background-color: gray;
+}
+
+/* Main */
+main {
+	padding: 40px;
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	align-items: start;
+	background-color: #e4eaf2;
+}
+
+#today-div {
+	width: 30%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background-color: white;
+	border-radius: 12px;
+	padding: 26px 40px;
+}
+
+.today-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 2px solid rgb(90, 90, 90);
+}
+
+.today-data-div {
+	display: flex;
+	justify-content: space-between;
+	gap: 40px;
+	padding: 10px;
+}
+
+.today-temper-div {
+	font-size: 24px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.today-side-container {
+	flex: 1;
+}
+
+.today-extra-data-div {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid gray;
+}
+
+.today-data-para {
+	font-weight: bold;
+}
+
+#temper-para {
+	font-weight: bold;
+	font-size: 60px;
+	margin: 10px 0px;
+}
+
+#condition-para {
+	font-size: 16px;
+}
