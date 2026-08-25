@@ -1,4 +1,8 @@
-let activeUnit = "C";
+const activeData = {
+	unit: "C",
+	temperature: null,
+	feelsLike: null,
+};
 
 export async function getWeatherData(city) {
 	try {
@@ -13,6 +17,12 @@ export async function getWeatherData(city) {
 		const data = await response.json();
 		const today = data.currentConditions;
 
+		activeData.temperature = today.temp;
+		activeData.feelsLike = today.feelslike;
+
+		today.temp = getActiveTemperature();
+		today.feelslike = getActiveFeelsLike();
+
 		return {
 			feelsLike: today.feelslike,
 			city: data.address,
@@ -20,6 +30,7 @@ export async function getWeatherData(city) {
 			precip: today.precip,
 			temperature: today.temp,
 			windSpeed: today.windspeed,
+			unit: activeData.unit,
 		};
 	} catch (e) {
 		console.log(e);
@@ -32,9 +43,25 @@ export function setActiveUnit(unit) {
 		console.log("Error. Wrong Unit");
 		return;
 	}
-	activeUnit = unit;
+	activeData.unit = unit;
 }
 
 export function getActiveUnit() {
-	return activeUnit;
+	return activeData.unit;
+}
+
+export function getActiveTemperature() {
+	if (activeData.unit === "C") {
+		return Math.round(((activeData.temperature - 32) / 1.8) * 10) / 10;
+	} else {
+		return activeData.temperature;
+	}
+}
+
+export function getActiveFeelsLike() {
+	if (activeData.unit === "C") {
+		return Math.round(((activeData.feelsLike - 32) / 1.8) * 10) / 10;
+	} else {
+		return activeData.feelsLike;
+	}
 }

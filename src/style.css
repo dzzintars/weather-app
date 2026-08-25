@@ -62,7 +62,6 @@ body {
 	width: 50px;
 	height: var(--city-input-height);
 	border: 1px solid rgb(43, 42, 42);
-	background-color: rgb(240, 240, 240);
 
 	&:hover {
 		background-color: rgb(185, 185, 185);
@@ -83,7 +82,7 @@ body {
 
 .clicked-header-button {
 	font-weight: bold;
-	background-color: gray;
+	background-color: rgb(194, 191, 191);
 }
 
 /* Main */
@@ -150,4 +149,10 @@ main {
 
 #condition-para {
 	font-size: 16px;
+}
+
+.error-para {
+	text-align: center;
+	font-size: 26px;
+	color: rgb(170, 0, 0);
 }

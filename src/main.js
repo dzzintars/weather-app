@@ -4,19 +4,27 @@ import * as ui from "./ui.js";
 
 async function init() {
 	const initWeatherData = await state.getWeatherData("Riga");
-	ui.renderTodayWeather(initWeatherData);
+	ui.renderTodayWeather(initWeatherData, state.getActiveUnit());
 
 	ui.bindCityInput(async (city) => {
 		const weatherData = await state.getWeatherData(city);
 		if (!weatherData) {
+			ui.renderCityError(city);
 			return;
 		}
+
 		ui.renderTodayWeather(weatherData);
 	});
 
-	ui.bindCFbuttons((unit) => {
-		state.setActiveUnit(unit);
-		ui.updateTemperatueUnits(unit);
+	ui.bindUnitbuttons(async (unit) => {
+		if (state.getActiveUnit() !== unit) {
+			state.setActiveUnit(unit);
+			ui.updateTemperatureUnits(
+				unit,
+				state.getActiveTemperature(),
+				state.getActiveFeelsLike(),
+			);
+		}
 	});
 }
 

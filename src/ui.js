@@ -17,7 +17,7 @@ export function renderTodayWeather(data) {
       </div>
       <div class="today-data-div">
         <div class="today-temper-div">
-          <p id="temper-para">${data.temperature}°C</p>
+          <p id="temper-para">${data.temperature}°${data.unit}</p>
           <p id="condition-para">${data.conditions}</p>
         </div>
         <div class="today-side-container">
@@ -27,7 +27,7 @@ export function renderTodayWeather(data) {
           </div>
           <div class="today-extra-data-div">
             <p>Feels like</p>
-            <p class="today-data-para">${data.feelsLike}°C</p>
+            <p class="today-data-para feelslike-para">${data.feelsLike}°C</p>
           </div>
           <div class="today-extra-data-div">
             <p>Precipitation</p>
@@ -35,15 +35,22 @@ export function renderTodayWeather(data) {
           </div>
         </div>
       </div>
-    
     `;
 }
 
-export function bindCFbuttons(callback) {
+function toggleUnitBtnBackground(clickedBtn) {
+	for (const btn of headerBtnDiv.children) {
+		btn.classList.remove("clicked-header-button");
+	}
+	clickedBtn.classList.add("clicked-header-button");
+}
+
+export function bindUnitbuttons(callback) {
 	headerBtnDiv.addEventListener("click", (e) => {
 		const unit = e.target.getAttribute("data-unit");
 		if (unit) {
 			callback(unit);
+			toggleUnitBtnBackground(e.target);
 		}
 	});
 }
@@ -51,11 +58,24 @@ export function bindCFbuttons(callback) {
 export function bindCityInput(callback) {
 	searchForm.addEventListener("submit", (e) => {
 		e.preventDefault();
+		if (cityInput.value.trim() === "") {
+			alert("Error. Empty input not allowed");
+			return;
+		}
 		callback(cityInput.value);
 		cityInput.value = "";
 	});
 }
 
-export function updateTemperatueUnits(unit) {
-	console.log(unit);
+export function updateTemperatureUnits(unit, temper, feelsLike) {
+	const feelsLikePara = document.querySelector(".feelslike-para");
+	const mainTemperPara = document.querySelector("#temper-para");
+	feelsLikePara.textContent = `${feelsLike}°${unit}`;
+	mainTemperPara.textContent = `${temper}°${unit}`;
+}
+
+export function renderCityError(cityName) {
+	todayDiv.innerHTML = `
+        <p class="error-para">Couldn't get data for ${cityName}</p>
+    `;
 }
