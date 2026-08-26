@@ -1,3 +1,19 @@
+import clearImg from "./assets/clear.svg";
+import rainImg from "./assets/rainy.svg";
+import cloudyImg from "./assets/cloudy.svg";
+import partlyCloudyImg from "./assets/partly-cloudy-day.svg";
+
+const weatherIconMap = {
+	clear: clearImg,
+	"clear-day": clearImg,
+	"clear-night": clearImg,
+	rainy: rainImg,
+	rain: rainImg,
+	cloudy: cloudyImg,
+	"partly-cloudy-day": partlyCloudyImg,
+};
+
+console.log(rainImg);
 const activeData = {
 	unit: "C",
 	temperature: null,
@@ -13,15 +29,17 @@ export async function getWeatherData(city) {
 		if (!response.ok) {
 			return null;
 		}
-
 		const data = await response.json();
 		const today = data.currentConditions;
+		console.log(data);
 
 		activeData.temperature = today.temp;
 		activeData.feelsLike = today.feelslike;
 
 		today.temp = getActiveTemperature();
 		today.feelslike = getActiveFeelsLike();
+
+		const icon = weatherIconMap[today.icon] || "";
 
 		return {
 			feelsLike: today.feelslike,
@@ -31,6 +49,7 @@ export async function getWeatherData(city) {
 			temperature: today.temp,
 			windSpeed: today.windspeed,
 			unit: activeData.unit,
+			icon: icon,
 		};
 	} catch (e) {
 		console.log(e);

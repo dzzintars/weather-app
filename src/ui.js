@@ -17,6 +17,7 @@ export function renderTodayWeather(data) {
       </div>
       <div class="today-data-div">
         <div class="today-temper-div">
+		  <img src="${data.icon}" alt="weather-icon" class='weather-icon'/>
           <p id="temper-para">${data.temperature}°${data.unit}</p>
           <p id="condition-para">${data.conditions}</p>
         </div>
@@ -36,6 +37,11 @@ export function renderTodayWeather(data) {
         </div>
       </div>
     `;
+
+	const weatherIcon = document.querySelector(".weather-icon");
+	if (weatherIcon.getAttribute("src") === "") {
+		weatherIcon.remove();
+	}
 }
 
 function toggleUnitBtnBackground(clickedBtn) {
