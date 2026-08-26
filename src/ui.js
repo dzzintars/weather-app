@@ -18,8 +18,10 @@ export function renderTodayWeather(data) {
       <div class="today-data-div">
         <div class="today-temper-div">
 		  <img src="${data.icon}" alt="weather-icon" class='weather-icon'/>
-          <p id="temper-para">${data.temperature}°${data.unit}</p>
-          <p id="condition-para">${data.conditions}</p>
+		  <div>
+		   <p id="temper-para">${data.temperature}°${data.unit}</p>
+           <p id="condition-para">${data.conditions}</p>
+		  </div>
         </div>
         <div class="today-side-container">
           <div class="today-extra-data-div">

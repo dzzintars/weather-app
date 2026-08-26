@@ -1,7 +1,7 @@
 import clearImg from "./assets/clear.svg";
-import rainImg from "./assets/rainy.svg";
 import cloudyImg from "./assets/cloudy.svg";
 import partlyCloudyImg from "./assets/partly-cloudy-day.svg";
+import rainImg from "./assets/rainy.svg";
 
 const weatherIconMap = {
 	clear: clearImg,
