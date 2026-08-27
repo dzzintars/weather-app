@@ -1,9 +1,10 @@
 const searchForm = document.querySelector("#search-form");
 const cityInput = document.querySelector("#city-input");
 const todayDiv = document.querySelector("#today-div");
+const forecastContainer = document.querySelector("#forecast-day-container");
 const headerBtnDiv = document.querySelector("#header-buttons");
 
-export function renderTodayWeather(data) {
+function renderTodayWeather(data) {
 	const time = new Date().toLocaleTimeString([], {
 		hour: "2-digit",
 		minute: "2-digit",
@@ -39,11 +40,34 @@ export function renderTodayWeather(data) {
         </div>
       </div>
     `;
+}
 
-	const weatherIcon = document.querySelector(".weather-icon");
-	if (weatherIcon.getAttribute("src") === "") {
-		weatherIcon.remove();
-	}
+function renderForecast(data) {
+	forecastContainer.innerHTML = data
+		.map((day) => {
+			return `
+		<div class="forecast-day-div">
+          <p>${day.date}</p>
+          <div class="forecast-info-div">
+            <img src="${day.icon}" alt="weather-icon" class='weather-icon'>
+            <p class="forecast-temper-para">${day.temperature}°C</p>
+          </div>
+        </div>
+		`;
+		})
+		.join("");
+}
+
+export function renderWeather(data) {
+	renderTodayWeather(data);
+	renderForecast(data.forecast);
+	const weatherIcons = document.querySelectorAll(".weather-icon");
+	console.log(weatherIcons);
+	weatherIcons.forEach((icon) => {
+		if (icon.getAttribute("src") === "") {
+			icon.remove();
+		}
+	});
 }
 
 function toggleUnitBtnBackground(clickedBtn) {

@@ -87,22 +87,22 @@ body {
 
 /* Main */
 main {
-	padding: 40px;
 	flex: 1;
-	display: flex;
-	justify-content: center;
-	align-items: start;
+	padding: 40px 80px;
 	background-color: #e4eaf2;
 }
 
 #today-div {
 	width: 30%;
+	min-width: 300px;
+	margin: 20px auto;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	background-color: white;
 	border-radius: 12px;
 	padding: 26px 40px;
+	box-shadow: 2px 4px 8px rgba(102, 102, 102, 0.5);
 }
 
 .today-header {
@@ -125,7 +125,7 @@ main {
 	align-items: center;
 	justify-content: center;
 
-	.weather-icon {
+	img {
 		height: 100px;
 	}
 
@@ -165,4 +165,61 @@ main {
 	text-align: center;
 	font-size: 26px;
 	color: rgb(170, 0, 0);
+}
+
+/* Forecast Part */
+#forecast-div {
+	background-color: white;
+	border-radius: 12px;
+	box-shadow: 2px 4px 8px rgba(102, 102, 102, 0.5);
+	padding: 20px 60px 50px;
+	margin: 80px auto;
+	text-align: center;
+	width: 80%;
+	min-width: 300px;
+
+	h2 {
+		font-size: 30px;
+		border-bottom: 2px solid rgb(90, 90, 90);
+		padding: 0px 10px 20px;
+		width: 85%;
+		margin: 30px auto;
+	}
+}
+
+#forecast-day-container {
+	display: flex;
+	gap: 40px;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.forecast-day-div {
+	background-color: white;
+	padding: 40px 20px;
+	border-radius: 16px;
+	border: 1px solid rgb(182, 182, 182);
+	box-shadow: 2px 4px 8px rgba(184, 184, 184, 0.5);
+	font-size: 28px;
+	text-align: center;
+
+	p {
+		margin: 10px;
+	}
+}
+
+.forecast-info-div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	img {
+		height: 80px;
+		margin: 0 -30px -40px 0;
+	}
+
+	p {
+		font-size: 25px;
+	}
 }

@@ -4,7 +4,7 @@ import * as ui from "./ui.js";
 
 async function init() {
 	const initWeatherData = await state.getWeatherData("Riga");
-	ui.renderTodayWeather(initWeatherData, state.getActiveUnit());
+	ui.renderWeather(initWeatherData, state.getActiveUnit());
 
 	ui.bindCityInput(async (city) => {
 		const weatherData = await state.getWeatherData(city);
@@ -13,7 +13,7 @@ async function init() {
 			return;
 		}
 
-		ui.renderTodayWeather(weatherData);
+		ui.renderWeather(weatherData);
 	});
 
 	ui.bindUnitbuttons(async (unit) => {

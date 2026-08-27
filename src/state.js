@@ -13,7 +13,6 @@ const weatherIconMap = {
 	"partly-cloudy-day": partlyCloudyImg,
 };
 
-console.log(rainImg);
 const activeData = {
 	unit: "C",
 	temperature: null,
@@ -40,6 +39,18 @@ export async function getWeatherData(city) {
 		today.feelslike = getActiveFeelsLike();
 
 		const icon = weatherIconMap[today.icon] || "";
+		const forecast = data.days
+			.map((day) => {
+				const dateParts = day.datetime.split("-");
+				const formattedDate = `${dateParts[2]}/${dateParts[1]}`;
+				return {
+					icon: weatherIconMap[day.icon] || "",
+					temperature: day.temp,
+					conditions: day.conditions,
+					date: formattedDate,
+				};
+			})
+			.slice(0, 7);
 
 		return {
 			feelsLike: today.feelslike,
@@ -50,6 +61,7 @@ export async function getWeatherData(city) {
 			windSpeed: today.windspeed,
 			unit: activeData.unit,
 			icon: icon,
+			forecast: forecast,
 		};
 	} catch (e) {
 		console.log(e);
