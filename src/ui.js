@@ -1,7 +1,7 @@
 const searchForm = document.querySelector("#search-form");
 const cityInput = document.querySelector("#city-input");
 const todayDiv = document.querySelector("#today-div");
-const forecastContainer = document.querySelector("#forecast-day-container");
+const forecastDiv = document.querySelector("#forecast-div");
 const headerBtnDiv = document.querySelector("#header-buttons");
 
 function renderTodayWeather(data) {
@@ -33,7 +33,7 @@ function renderTodayWeather(data) {
           </div>
           <div class="today-extra-data-div">
             <p>Feels like</p>
-            <p class="today-data-para feelslike-para">${data.feelsLike}°C</p>
+            <p class="today-data-para feelslike-para">${data.feelsLike}°${data.unit}</p>
           </div>
           <div class="today-extra-data-div">
             <p>Precipitation</p>
@@ -45,7 +45,7 @@ function renderTodayWeather(data) {
 }
 
 function renderForecast(data) {
-	forecastContainer.innerHTML = data
+	const daysHtml = data
 		.map((day) => {
 			return `
 		<div class="forecast-day-div">
@@ -58,6 +58,13 @@ function renderForecast(data) {
 		`;
 		})
 		.join("");
+
+	forecastDiv.innerHTML = `
+        <h2>7 Day Forecast</h2>
+        <div id="forecast-day-container">
+            ${daysHtml}
+        </div>
+    `;
 }
 
 export function renderWeather(data) {
@@ -118,4 +125,15 @@ export function renderCityError(cityName) {
 	todayDiv.innerHTML = `
         <p class="error-para">Couldn't get data for ${cityName}</p>
     `;
+	forecastDiv.innerHTML = "";
+}
+
+export function renderLoading() {
+	todayDiv.innerHTML = `
+        <div class="today-header">
+            <h2>Fetching weather data...</h2>
+        </div>
+    `;
+
+	forecastDiv.innerHTML = "";
 }

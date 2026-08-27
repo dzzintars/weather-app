@@ -39,8 +39,11 @@ export async function getWeatherData(city) {
 
 		const forecast = data.days
 			.map((day) => {
-				const dateParts = day.datetime.split("-");
-				const formattedDate = `${dateParts[2]}/${dateParts[1]}`;
+				const date = new Date(day.datetime);
+				const formattedDate = new Intl.DateTimeFormat("en-GB", {
+					day: "2-digit",
+					month: "2-digit",
+				}).format(date);
 				const temp = activeData.unit === "C" ? convertFtoC(day.temp) : day.temp;
 
 				return {
@@ -98,13 +101,9 @@ export function getActiveFeelsLike() {
 }
 
 export function getActiveForecastTemps() {
-	if (activeData.unit === "C") {
-		return activeData.forecastTemps.map((t) => {
-			return convertFtoC(t);
-		});
-	} else {
-		return activeData.forecastTemps;
-	}
+	return activeData.unit === "C"
+		? activeData.forecastTemps.map(convertFtoC)
+		: activeData.forecastTemps;
 }
 
 function convertFtoC(temperature) {
