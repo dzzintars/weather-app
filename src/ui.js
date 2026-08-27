@@ -50,7 +50,7 @@ function renderForecast(data) {
           <p>${day.date}</p>
           <div class="forecast-info-div">
             <img src="${day.icon}" alt="weather-icon" class='weather-icon'>
-            <p class="forecast-temper-para">${day.temperature}°C</p>
+            <p class="forecast-temper-para">${day.temperature}°${day.unit}</p>
           </div>
         </div>
 		`;
@@ -62,7 +62,6 @@ export function renderWeather(data) {
 	renderTodayWeather(data);
 	renderForecast(data.forecast);
 	const weatherIcons = document.querySelectorAll(".weather-icon");
-	console.log(weatherIcons);
 	weatherIcons.forEach((icon) => {
 		if (icon.getAttribute("src") === "") {
 			icon.remove();
@@ -99,11 +98,18 @@ export function bindCityInput(callback) {
 	});
 }
 
-export function updateTemperatureUnits(unit, temper, feelsLike) {
+export function updateTemperatureUnits(unit, temper, feelsLike, forecastArr) {
 	const feelsLikePara = document.querySelector(".feelslike-para");
 	const mainTemperPara = document.querySelector("#temper-para");
 	feelsLikePara.textContent = `${feelsLike}°${unit}`;
 	mainTemperPara.textContent = `${temper}°${unit}`;
+
+	const forecastParas = document.querySelectorAll(".forecast-temper-para");
+	let i = 0;
+	forecastParas.forEach((p) => {
+		p.textContent = `${forecastArr[i]}°${unit}`;
+		++i;
+	});
 }
 
 export function renderCityError(cityName) {

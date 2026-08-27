@@ -23,6 +23,7 @@ async function init() {
 				unit,
 				state.getActiveTemperature(),
 				state.getActiveFeelsLike(),
+				state.getActiveForecastTemps(),
 			);
 		}
 	});

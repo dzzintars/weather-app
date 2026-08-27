@@ -17,6 +17,7 @@ const activeData = {
 	unit: "C",
 	temperature: null,
 	feelsLike: null,
+	forecastTemps: null,
 };
 
 export async function getWeatherData(city) {
@@ -34,11 +35,12 @@ export async function getWeatherData(city) {
 
 		activeData.temperature = today.temp;
 		activeData.feelsLike = today.feelslike;
-
+		activeData.forecastTemps = data.days.map((day) => day.temp).slice(0, 7);
 		today.temp = getActiveTemperature();
 		today.feelslike = getActiveFeelsLike();
 
 		const icon = weatherIconMap[today.icon] || "";
+
 		const forecast = data.days
 			.map((day) => {
 				const dateParts = day.datetime.split("-");
@@ -46,8 +48,8 @@ export async function getWeatherData(city) {
 				return {
 					icon: weatherIconMap[day.icon] || "",
 					temperature: day.temp,
-					conditions: day.conditions,
 					date: formattedDate,
+					unit: activeData.unit,
 				};
 			})
 			.slice(0, 7);
@@ -94,5 +96,15 @@ export function getActiveFeelsLike() {
 		return Math.round(((activeData.feelsLike - 32) / 1.8) * 10) / 10;
 	} else {
 		return activeData.feelsLike;
+	}
+}
+
+export function getActiveForecastTemps() {
+	if (activeData.unit === "C") {
+		return activeData.forecastTemps.map((t) => {
+			return Math.round(((t - 32) / 1.8) * 10) / 10;
+		});
+	} else {
+		return activeData.forecastTemps;
 	}
 }
