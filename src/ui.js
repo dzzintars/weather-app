@@ -11,10 +11,12 @@ function renderTodayWeather(data) {
 	});
 
 	todayDiv.innerHTML = `
-        <div class="today-header">
+      <div class="today-header">
         <h2>Current weather</h2>
+		<div>
         <h2>${data.city}</h2>
         <p class="current-time">${time}</p>
+		</div>
       </div>
       <div class="today-data-div">
         <div class="today-temper-div">
