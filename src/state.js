@@ -25,19 +25,15 @@ export async function getWeatherData(city) {
 		const response = await fetch(
 			`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=us&key=GN2MSNSFL752487QM3FC24SVY&contentType=json`,
 		);
-
 		if (!response.ok) {
 			return null;
 		}
 		const data = await response.json();
 		const today = data.currentConditions;
-		console.log(data);
 
 		activeData.temperature = today.temp;
 		activeData.feelsLike = today.feelslike;
 		activeData.forecastTemps = data.days.map((day) => day.temp).slice(0, 7);
-		today.temp = getActiveTemperature();
-		today.feelslike = getActiveFeelsLike();
 
 		const icon = weatherIconMap[today.icon] || "";
 
@@ -57,12 +53,12 @@ export async function getWeatherData(city) {
 			.slice(0, 7);
 
 		return {
-			feelsLike: today.feelslike,
 			city: data.address,
+			temperature: getActiveTemperature(),
+			feelsLike: getActiveFeelsLike(),
 			conditions: today.conditions,
-			precip: today.precip,
-			temperature: today.temp,
 			windSpeed: today.windspeed,
+			precip: today.precip,
 			unit: activeData.unit,
 			icon: icon,
 			forecast: forecast,
