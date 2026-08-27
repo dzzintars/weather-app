@@ -45,9 +45,11 @@ export async function getWeatherData(city) {
 			.map((day) => {
 				const dateParts = day.datetime.split("-");
 				const formattedDate = `${dateParts[2]}/${dateParts[1]}`;
+				const temp = activeData.unit === "C" ? convertFtoC(day.temp) : day.temp;
+
 				return {
 					icon: weatherIconMap[day.icon] || "",
-					temperature: day.temp,
+					temperature: temp,
 					date: formattedDate,
 					unit: activeData.unit,
 				};
@@ -85,7 +87,7 @@ export function getActiveUnit() {
 
 export function getActiveTemperature() {
 	if (activeData.unit === "C") {
-		return Math.round(((activeData.temperature - 32) / 1.8) * 10) / 10;
+		return convertFtoC(activeData.temperature);
 	} else {
 		return activeData.temperature;
 	}
@@ -93,7 +95,7 @@ export function getActiveTemperature() {
 
 export function getActiveFeelsLike() {
 	if (activeData.unit === "C") {
-		return Math.round(((activeData.feelsLike - 32) / 1.8) * 10) / 10;
+		return convertFtoC(activeData.feelsLike);
 	} else {
 		return activeData.feelsLike;
 	}
@@ -102,9 +104,13 @@ export function getActiveFeelsLike() {
 export function getActiveForecastTemps() {
 	if (activeData.unit === "C") {
 		return activeData.forecastTemps.map((t) => {
-			return Math.round(((t - 32) / 1.8) * 10) / 10;
+			return convertFtoC(t);
 		});
 	} else {
 		return activeData.forecastTemps;
 	}
+}
+
+function convertFtoC(temperature) {
+	return Math.round(((temperature - 32) / 1.8) * 10) / 10;
 }
